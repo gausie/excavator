@@ -1,82 +1,26 @@
-# This is a workflow to perform basic verification for KoLmafia ASH scripts
+# This workflow will do a clean install of node dependencies, build the source
+# code across multiple Node.js versions, and lint the project.
 
-name: CI
-env:
-  SCRIPT_NAME: "excavator.ash"
+name: Build & Lint
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
+
+env:
+  # Default version of Node.js for jobs
+  node-version: "18"
 
 jobs:
-  verify:
-    name: Verify
+  lint:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
-
-    - name: Setup Java 17
-      uses: actions/setup-java@v3
-      with:
-        distribution: "temurin"
-        java-version: "17"
-
-    - name: Determine KoLmafia version
-      id: mafia
-      run: |
-        set -o pipefail
-        export GITHUB_RELEASE=$(curl --fail --silent --globoff 'https://api.github.com/repos/kolmafia/kolmafia/releases/latest')
-        if [[ -z "$GITHUB_RELEASE" ]]; then
-          echo "Could not get KoLmafia latest release from GitHub!"
-          exit 1
-        fi
-        export GITHUB_BUILD=$(echo $GITHUB_RELEASE | jq --raw-output '.name')
-        export GITHUB_URL=$(echo $GITHUB_RELEASE | jq --raw-output '.assets[] | select(.browser_download_url | contains(".jar")).browser_download_url')
-        echo "github=$GITHUB_URL" >> $GITHUB_OUTPUT
-        echo "GitHub URL = ${GITHUB_URL}"
-        echo "build=$GITHUB_BUILD" >> $GITHUB_OUTPUT
-        echo "GitHub Mafia Build = ${GITHUB_BUILD}"
-
-    - name: Cache KoLmafia
-      id: cache
-      uses: actions/cache@v3
-      with:
-        path: .github/kolmafia.jar
-        key: kolmafia-${{steps.mafia.outputs.build}}
-
-    - name: Download KoLmafia
-      if: steps.cache.outputs.cache-hit != 'true'
-      run: |
-        curl -L "${{steps.mafia.outputs.github}}" --output .github/kolmafia.jar
-    
-    - name: Install and verify
-      run: |
-        cd RELEASE
-
-        if [[ -f "dependencies.txt" ]]; then
-          # Install dependencies
-          echo "Installing dependencies..."
-
-          output_file="scripts/_ci_dependencies.ash"
-          while read -r line || [ -n "$line" ]; do
-            echo "cli_execute('svn checkout ${line}');" >> "$output_file"
-          done < "dependencies.txt"
-          echo "cli_execute('exit');" >> "$output_file"
-          java -DuseCWDasROOT=true -jar ../.github/kolmafia.jar --CLI _ci_dependencies
-        fi
-
-        # Run the verification
-        echo "Verifying..."
-
-        echo "try { cli_execute('verify ${SCRIPT_NAME}'); } finally { cli_execute('exit'); }" > scripts/_ci_verify.ash
-        output=$(java -DuseCWDasROOT=true -jar ../.github/kolmafia.jar --CLI _ci_verify)
-        if [[ $output == *"Script verification complete." ]]; then
-          echo "Verified!"
-          exit 0
-        else
-          echo $output
-          exit 1
-        fi
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ env.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ env.node-version }}
+      - run: yarn install --frozen-lockfile

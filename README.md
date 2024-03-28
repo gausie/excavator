@@ -13,13 +13,13 @@ It is maintained by gausie (#1197090).
 Install the script using the KoLmafia CLI:
 
 ```
-svn checkout https://github.com/gausie/excavator/trunk/RELEASE/
+git checkout gausie/excavator
 ```
 
-Set up KoLmafia to use `excavator.ash` as your spadingScript:
+Set up KoLmafia to use `excavator.js` as your spadingScript:
 
 ```
-set spadingScript = excavator.ash
+set spadingScript = excavator.js
 ```
 
 Data will be automatically submitted when possible, but if you want to manually clear the cache in the `spadingData` prop, you can do so using the `spade autoconfirm` command:
@@ -32,21 +32,23 @@ A reminder to do so appears on login and in the Daily Deeds panel.
 
 ## Current projects
 
-* **[Bird-a-Day](RELEASE/scripts/excavator/projects/x_bird_a_day.ash)** - Determine the relationship between Blessing of the Bird modifiers and the day seed
-* **[Genie](RELEASE/scripts/excavator/projects/x_genie.ash)** - Determine which monsters and effects can be fought/acquired with the Genie
-* **[Hookah](RELEASE/scripts/excavator/projects/x_hookah.ash)** - Record instances of an effect obtained through a hookah-like mechanic that KoLmafia thinks shouldn't be possible
-* **[Continental Juice Bar](RELEASE/scripts/excavator/projects/x_juice_bar.ash)** - Determine the relationship between Chateau Mantegna Continental Juice Bar potions and the day seed
-* **[Monster Parts](RELEASE/scripts/excavator/projects/x_monster_parts.ash)** -  Determine what parts are considered to make up each monster
-* **[Mumming Trunk](RELEASE/scripts/excavator/projects/x_mumming_trunk.ash)** - Record instances of a familiar indicating that it has a previous undetected attribute through mumming trunk bonuses
-* **[Out of Order](RELEASE/scripts/excavator/projects/x_out_of_order.ash)** - Determine the relationship between initiative bonus and beeps from the GPS-tracking wristwatch during the Out of Order quest
-* **[PvP Effects](RELEASE/scripts/excavator/projects/x_pvp_effects.ash)** - Determine which effects are decremented by PvP fights
+* **[Autumnaton](packages/excavator-script/src/projects/autumnaton.ts)** - Determine difficulty level of zones `autumnaton` is sent to
+* **[Coat of Paint](packages/excavator-script/src/projects/coatOfPaint.ts)** - Determine the relationship between `fresh coat of paint` modifiers and the day seed
+* **[Bird-a-Day](packages/excavator-script/src/projects/birdADay.ts)** - Determine the relationship between `Blessing of the Bird` modifiers and the day seed
+* **[Genie](packages/excavator-script/src/projects/genie.ts)** - Determine which monsters and effects can be fought/acquired with the `Genie`
+* **[Hookah](packages/excavator-script/src/projects/hookah.ts)** - Record instances of an effect obtained through a mechanic like the `ittah bittah hookah` that KoLmafia thinks shouldn't be possible
+* **[Continental Juice Bar](packages/excavator-script/src/projects/juiceBar.ash)** - Determine the relationship between `Chateau Mantegna` Continental Juice Bar potions and the day seed
+* **[Mumming Trunk](packages/excavator-script/src/projects/mummingTrunk.ash)** - Record instances of a familiar indicating that it has a previous undetected attribute through `mumming trunk` bonuses
+* **[Out of Order](packages/excavator-script/src/projects/outOfOrder.ash)** - Determine the relationship between initiative bonus and beeps from the `GPS-tracking wristwatch` during the Out of Order quest
 
 ## Retired Projects
-* **[Beach Comb](retired_projects/x_beach_comb.ash)** - There are more intense spading projects occurring elsewhere and this project spams a lot of data
-* **[Cargo Cultist Shorts](retired_projects/x_cargo_cultist_shorts.ash)** - We determined [what it has in its pocketses](https://kol.coldfront.net/thekolwiki/index.php/What_has_it_got_in_its_pocketses%3F/contents)
-* **[Guzzlr](retired_projects/x_guzzlr.ash)** - We worked out [the relationship between Guzzlr deliveries and enchantments](https://kol.coldfront.net/thekolwiki/index.php/Guzzlr_tablet#Notes) on the Guzzlr tablet accessory
-* **[Voting Booth](retired_projects/x_voting_booth.ash)** - We [backwards-engineered the code](https://kol.coldfront.net/thekolwiki/index.php/Talk:Voting_Booth#Initiative_seeding) that maps day seed to voting initiatives
-* **[WLF Bunker](retired_projects/x_wlf_bunker.ash)** - Determine the relationship between WLF Bunker operations and the day seed
+* **Beach Comb** - There are more intense spading projects occurring elsewhere and this project spams a lot of data
+* **Cargo Cultist Shorts** - We determined [what it has in its pocketses](https://kol.coldfront.net/thekolwiki/index.php/What_has_it_got_in_its_pocketses%3F/contents)
+* **Guzzlr** - We worked out [the relationship between Guzzlr deliveries and enchantments](https://kol.coldfront.net/thekolwiki/index.php/Guzzlr_tablet#Notes) on the Guzzlr tablet accessory
+* **Monster Parts** - The release of the [Everfull Dart Holster](https://kol.coldfront.net/thekolwiki/index.php/Everfull_Dart_Holster) made future part collection much easier. 
+* **PvP Effects** - We found a few effects that don't decrease via PvP turns, but retired this as it was temperamental
+* **Voting Booth** - We [backwards-engineered the code](https://kol.coldfront.net/thekolwiki/index.php/Talk:Voting_Booth#Initiative_seeding) that maps day seed to voting initiatives
+* **WLF Bunker** - We determined the relationship between WLF Bunker operations and the day seed
 
 ## Further information
 

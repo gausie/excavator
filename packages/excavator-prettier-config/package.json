@@ -1,0 +1,26 @@
+{
+  "name": "excavator-prettier-config",
+  "version": "0.0.0",
+  "author": "Sam Gaus <sam@gaus.co.uk>",
+  "homepage": "https://github.com/gausie/excavator",
+  "license": "ISC",
+  "main": "prettier-config.js",
+  "files": [
+    "prettier-config.js"
+  ],
+  "scripts": {
+    "format": "prettier --write ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gausie/excavator.git"
+  },
+  "devDependencies": {
+    "@trivago/prettier-plugin-sort-imports": "^4.2.0",
+    "prettier": "^3.0.3"
+  },
+  "peerDependencies": {
+    "@trivago/prettier-plugin-sort-imports": "^4.2.0",
+    "prettier": "^3.0.3"
+  }
+}
